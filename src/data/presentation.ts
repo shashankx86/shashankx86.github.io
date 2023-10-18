@@ -16,7 +16,7 @@ const presentation: Presentation = {
   title: "Hi, I’m shashankx86 👋",
   profile: "https://avatars.githubusercontent.com/u/64682801?v=4",
   description:
-    "Namaste world, I'm a high school student, passionate about *Programming, Embedded system, Linux, and Everything*. I am currently working with *python and mojo*. Anime, Manga and Manhwa <3.",
+    "Namaste world, I'm a high school student, passionate about *Programming, Embedded system, Linux, and Everything*. I am currently learning *hardware hacking*. Anime, Manga and Manhwa <3.",
   socials: [
     {
       label: "X",
