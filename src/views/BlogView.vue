@@ -4,7 +4,7 @@ import '../assets/home.css'
 
 <template>
   <div class="home">
-    <div class="markdown-content">
+    <div class="content-container">
       <h1>Blog</h1>
       <p>Coming soon...</p>
     </div>
