@@ -1,7 +1,7 @@
 <template>
   <div class="home-view">
     <div class="home-header">
-      <h1>~/0x00</h1>
+      <h1>~/::</h1>
       <p>Hi, it's your friendly Linux nerd (arch, btw) Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
       <p>Rust is my love, We shall unite comrades' 卐</p>
       <p>Pajama masterr!</p>
