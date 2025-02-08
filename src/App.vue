@@ -20,8 +20,10 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
       </div>
     </nav>
     <main>
-      <div class="content-container">
-        <router-view></router-view>
+      <div class="page-wrapper">
+        <div class="content-area">
+          <router-view></router-view>
+        </div>
       </div>
     </main>
   </div>
@@ -29,8 +31,9 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
 
 <style scoped>
 .app-container {
-  height: 100vh;
-  overflow: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-path {
