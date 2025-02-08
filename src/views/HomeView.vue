@@ -2,8 +2,9 @@
   <div class="home-view">
     <div class="home-header">
       <h1>~/0x00</h1>
-      <p>Hi, it's your friendly Linux nerd (arch, btw). My name is Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
-      <p>I love Linux, and Rust is my love. We shall unite comrades' 卐</p>
+      <p>Hi, it's your friendly Linux nerd (arch, btw) Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
+      <p>Rust is my love, We shall unite comrades' 卐</p>
+      <p>Pajama masterr!</p>
     </div>
     
     <div class="github-stats">
@@ -41,7 +42,7 @@
 }
 
 .home-header {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .home-header h1 {
@@ -49,29 +50,28 @@
 }
 
 .home-header p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .github-stats {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  align-items: flex-start; 
+  gap: 0.5rem;
   overflow-x: hidden;
-  padding-bottom: 1rem;
 }
 
 .stats-image {
-  max-width: 350px; /* Set a maximum width for larger screens */
+  max-width: 350px; 
   width: 100%;
   height: auto;
   display: block;
 }
 
 .nav-links {
-  line-height: 1.8;
+  line-height: 1.6;  
   word-wrap: break-word;
+  margin-top: 0.5rem;  
 }
 
 .special-link {
@@ -85,10 +85,10 @@
   border-bottom-color: rgb(96 165 250);
 }
 
-/* Responsive styles */
+
 @media (max-width: 768px) {
   .stats-image {
-    max-width: 400px; /* Slightly smaller for medium screens */
+    max-width: 400px;
   }
 }
 
@@ -98,7 +98,7 @@
   }
 
   .stats-image {
-    max-width: 100%; /* Full width for mobile screens */
+    max-width: 100%; 
   }
 
   .nav-links {
