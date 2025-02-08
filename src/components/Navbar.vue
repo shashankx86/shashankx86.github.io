@@ -11,7 +11,7 @@ const currentPath = computed(() => route.path)
     <div class="nav-path">
       <router-link to="/" class="navbar-brand">~/</router-link>
       <template v-if="currentPath !== '/'">
-        <span class="nav-separator">∘</span>
+        <span class="nav-separator">::</span>
         <router-link :to="currentPath">{{ currentPath }}</router-link>
       </template>
     </div>
