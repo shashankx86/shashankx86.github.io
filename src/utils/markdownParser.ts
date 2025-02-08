@@ -9,22 +9,32 @@ interface ProjectItem {
 
 export function parseProjectsFormat(content: string): ProjectItem[] {
   const projects: ProjectItem[] = [];
-  const lines = content.split('\n').filter(line => line.trim());
+  const lines = content.split('\n');
   let currentProject: ProjectItem | null = null;
+  let isBlankLine = false;
 
-  for (let line of lines) {
-    line = line.trimStart();
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trimStart();
     
+    if (!line.trim()) {
+      isBlankLine = true;
+      continue;
+    }
+
     if (line.startsWith('- ')) {
-      // New main project
-      if (currentProject) {
+      // Add extra spacing only if there was a blank line and not the first project
+      if (currentProject && isBlankLine) {
+        projects.push(currentProject);
+      } else if (currentProject) {
         projects.push(currentProject);
       }
+      
       currentProject = {
         title: line.substring(2).trim(),
         description: '',
         subItems: []
       };
+      isBlankLine = false;
     } else if (line.startsWith('-')) {
       // Sub item
       if (currentProject) {
@@ -48,6 +58,7 @@ export function parseProjectsFormat(content: string): ProjectItem[] {
     }
   }
 
+  // Add the last project if exists
   if (currentProject) {
     projects.push(currentProject);
   }

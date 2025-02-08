@@ -6,10 +6,21 @@ import { parseProjectsFormat } from '../utils/markdownParser'
 import { useRouter } from 'vue-router'
 import ProjectsList from '../components/ProjectsList.vue'
 
+// Add interface definition
+interface ProjectItem {
+  title: string;
+  description: string;
+  subItems: Array<{
+    text: string;
+    link?: string;
+  }>;
+}
+
 const router = useRouter()
-const content = ref([])
+// Add explicit typing to the ref
+const content = ref<ProjectItem[]>([])
 const isLoading = ref(true)
-const error = ref(null)
+const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
@@ -35,8 +46,25 @@ const goHome = () => {
       <div v-else-if="error" class="error">{{ error }}</div>
       <ProjectsList v-else :projects="content" />
       <div class="back-link">
-        <a href="#" @click.prevent="goHome">~/</a>
+        <a href="#" @click.prevent="goHome">Back to ~/</a>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.back-link {
+  margin-top: 1rem;
+}
+
+.back-link a {
+  color: rgb(96 165 250);
+  text-decoration: none;
+  transition: border-bottom-color 0.2s;
+  border-bottom: 1px solid transparent;
+}
+
+.back-link a:hover {
+  border-bottom-color: rgb(96 165 250);
+}
+</style>
