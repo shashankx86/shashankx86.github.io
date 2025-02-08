@@ -4,6 +4,7 @@
 :root {
   --color-background: #000000;
   --color-text: #ffffff;
+  --navbar-height: 60px;
 }
 
 body {
@@ -11,27 +12,15 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   line-height: 1.2;
-  font-family: 'Alef';
+  font-family: 'Alef', sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
-/* Global spacing reset */
-h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
-  padding: 0;
-  line-height: 1.2;
-}
-
-/* Remove default list spacing */
-ul, ol {
-  margin: 0;
-  padding: 0;
-  line-height: 1.2;
-}
-
-li {
+/* Global reset */
+h1, h2, h3, h4, h5, h6, p, ul, ol, li {
   margin: 0;
   padding: 0;
   line-height: 1.2;

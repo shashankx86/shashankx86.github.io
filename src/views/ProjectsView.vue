@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import '../assets/home.css'
 import { ref, onMounted } from 'vue'
 import { parseMarkdown } from '../utils/markdown'
 import { parseProjectsFormat } from '../utils/markdownParser'
@@ -40,31 +39,49 @@ const goHome = () => {
 </script>
 
 <template>
-  <div class="home">
-    <div class="content-container">
-      <div v-if="isLoading" class="loading">Loading...</div>
-      <div v-else-if="error" class="error">{{ error }}</div>
-      <ProjectsList v-else :projects="content" />
-      <div class="back-link">
-        <a href="#" @click.prevent="goHome">Back to ~/</a>
-      </div>
+  <div class="projects-view">
+    <div v-if="isLoading" class="loading">Loading...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <ProjectsList v-else :projects="content" />
+    <div class="back-link">
+      <a href="#" @click.prevent="goHome">Back to ~/</a>
     </div>
   </div>
 </template>
 
 <style scoped>
+.projects-view {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.loading, 
+.error {
+  text-align: center;
+  padding: 1rem;
+}
+
 .back-link {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .back-link a {
   color: rgb(96 165 250);
   text-decoration: none;
-  transition: border-bottom-color 0.2s;
   border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.2s;
 }
 
 .back-link a:hover {
   border-bottom-color: rgb(96 165 250);
+}
+
+@media (max-width: 480px) {
+  .projects-view {
+    padding: 0.75rem;
+  }
 }
 </style>
