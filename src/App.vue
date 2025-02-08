@@ -14,7 +14,7 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
       <div class="nav-path">
         <router-link to="/" class="navbar-brand">~/</router-link>
         <template v-if="currentPath !== '/'">
-          <span class="nav-separator">∘</span>
+          <span class="nav-separator">::</span>
           <router-link :to="currentPath">{{ currentPath }}</router-link>
         </template>
       </div>
@@ -40,6 +40,7 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .nav-separator {

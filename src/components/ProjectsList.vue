@@ -57,10 +57,10 @@ const props = defineProps<{
 }
 
 .project-item::before {
-  content: "◆";
+  content: "◈";
+  color: rgb(96 165 250);
   position: absolute;
   left: 0;
-  color: var(--color-text);
 }
 
 .project-title {
@@ -99,7 +99,7 @@ const props = defineProps<{
   content: "◇";
   position: absolute;
   left: 0;
-  color: var(--color-text);
+  color: rgb(78, 129, 191);
   opacity: 0.9;
 }
 
