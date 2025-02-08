@@ -12,16 +12,19 @@
         src="https://github-readme-stats.vercel.app/api?username=shashankx86&theme=dark&show_icons=true&hide_border=true&count_private=true" 
         alt="GitHub Stats"
         class="stats-image"
+        loading="lazy"
       />
       <img 
         src="https://github-readme-streak-stats.herokuapp.com/?user=shashankx86&theme=dark&hide_border=true" 
         alt="GitHub Streak Stats"
         class="stats-image"
+        loading="lazy"
       />
       <img 
         src="https://github-readme-stats.vercel.app/api/top-langs/?username=shashankx86&theme=dark&show_icons=true&hide_border=true&layout=compact" 
         alt="Top Languages"
         class="stats-image"
+        loading="lazy"
       />
     </div>
 

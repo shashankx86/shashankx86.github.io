@@ -1,25 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ProjectsView from '../views/ProjectsView.vue'
-import BlogView from '../views/BlogView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/projects',
       name: 'projects',
-      component: ProjectsView
+      component: () => import('../views/ProjectsView.vue')
     },
     {
       path: '/blog',
       name: 'blog',
-      component: BlogView
+      component: () => import('../views/BlogView.vue')
     },
     {
       path: '/:pathMatch(.*)*',

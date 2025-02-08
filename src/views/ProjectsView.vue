@@ -18,16 +18,22 @@ interface ProjectItem {
 const router = useRouter()
 // Add explicit typing to the ref
 const content = ref<ProjectItem[]>([])
-const isLoading = ref(true)
+const isLoading = ref<boolean>(true)
 const error = ref<string | null>(null)
+
+// Add error handling wrapper
+const handleError = (err: unknown) => {
+  const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred'
+  error.value = errorMessage
+  content.value = []
+}
 
 onMounted(async () => {
   try {
     const rawContent = await parseMarkdown('/projects/projects.md')
     content.value = parseProjectsFormat(rawContent)
-  } catch (err: any) {
-    error.value = err.message
-    content.value = []
+  } catch (err) {
+    handleError(err)
   } finally {
     isLoading.value = false
   }

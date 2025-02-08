@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import './assets/base.css'
 import './assets/app.css'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, type ComputedRef } from 'vue'
+import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router'
 
-const route = useRoute()
-const currentPath = computed(() => route.path)
+const route: RouteLocationNormalizedLoaded = useRoute()
+const currentPath: ComputedRef<string> = computed(() => route.path)
 </script>
 
 <template>

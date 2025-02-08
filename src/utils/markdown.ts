@@ -1,16 +1,13 @@
-import { marked } from 'marked'
+const markdownCache = new Map<string, string>()
 
-export async function parseMarkdown(filePath: string) {
-  const cleanPath = filePath.replace(/^public\//, '/')
-  
-  try {
-    const response = await fetch(cleanPath)
-    if (!response.ok) {
-      throw new Error(`Failed to load content: ${response.status}`)
-    }
-    return await response.text()
-  } catch (error) {
-    console.error(`Error reading file: ${cleanPath}`, error)
-    throw error
+export async function parseMarkdown(filePath: string): Promise<string> {
+  if (markdownCache.has(filePath)) {
+    return markdownCache.get(filePath)!
   }
+
+  const cleanPath = filePath.replace(/^public\//, '/')
+  const response = await fetch(cleanPath)
+  const content = await response.text()
+  markdownCache.set(filePath, content)
+  return content
 }
