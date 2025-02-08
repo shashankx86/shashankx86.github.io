@@ -1,7 +1,3 @@
-<script setup lang="ts">
-// No need to import home.css anymore
-</script>
-
 <template>
   <div class="home-view">
     <div class="home-header">
@@ -9,6 +5,25 @@
       <p>Hi, it's your friendly Linux nerd (arch, btw). My name is Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
       <p>I love Linux, and Rust is my love. We shall unite comrades' 卐</p>
     </div>
+    
+    <div class="github-stats">
+      <img 
+        src="https://github-readme-stats.vercel.app/api?username=shashankx86&theme=dark&show_icons=true&hide_border=true&count_private=true" 
+        alt="GitHub Stats"
+        class="stats-image"
+      />
+      <img 
+        src="https://github-readme-streak-stats.herokuapp.com/?user=shashankx86&theme=dark&hide_border=true" 
+        alt="GitHub Streak Stats"
+        class="stats-image"
+      />
+      <img 
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=shashankx86&theme=dark&show_icons=true&hide_border=true&layout=compact" 
+        alt="Top Languages"
+        class="stats-image"
+      />
+    </div>
+
     <div class="nav-links">
       <router-link to="/projects" class="special-link">~/projects</router-link> - see my supaar projects<br>
       <router-link to="/blog" class="special-link">~/blog</router-link> - to read my civilised rant & some juicy tech info<br>
@@ -21,8 +36,6 @@
 <style scoped>
 .home-view {
   width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -37,6 +50,23 @@
 
 .home-header p {
   margin-bottom: 0.5rem;
+}
+
+.github-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  overflow-x: hidden;
+  padding-bottom: 1rem;
+}
+
+.stats-image {
+  max-width: 350px; /* Set a maximum width for larger screens */
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .nav-links {
@@ -55,9 +85,20 @@
   border-bottom-color: rgb(96 165 250);
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+  .stats-image {
+    max-width: 400px; /* Slightly smaller for medium screens */
+  }
+}
+
 @media (max-width: 480px) {
   .home-view {
     padding: 0.75rem;
+  }
+
+  .stats-image {
+    max-width: 100%; /* Full width for mobile screens */
   }
 
   .nav-links {

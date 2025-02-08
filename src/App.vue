@@ -30,7 +30,7 @@ const currentPath = computed(() => route.path)
 <style scoped>
 .app-container {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .nav-path {
