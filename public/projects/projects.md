@@ -14,7 +14,7 @@ It is a utility to manage and run local script's on your system
 
 - Action-ManagaDL
 Bulk manga/manhwa/manhua download using Github Action 
-    - [Git](https://github.com/shashankx86/Action-MangaDL)
+    -[Git](https://github.com/shashankx86/Action-MangaDL)
 
 - ExtendedFi
 Hacking JMR540 to turn it into a hacking device.
