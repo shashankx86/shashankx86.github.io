@@ -1,7 +1,7 @@
 <template>
   <div class="home-view">
     <div class="home-header">
-      <h1>~/::</h1>
+      <h1>~/<span class="rotating-separator">✳</span></h1>
       <p>Hi, it's your friendly Linux nerd (arch, btw) Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
       <p>Rust is my love, We shall unite comrades' 卐</p>
       <p>Pajama masterr!</p>
@@ -113,5 +113,24 @@
   .home-header p {
     font-size: 0.9rem;
   }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-separator {
+  display: inline-block;
+  animation: rotate 3s linear infinite;
+  transform-origin: center;
+  font-size: 40px;
+  position: relative;
+  top: 6px; 
+  margin-left: 2px; 
 }
 </style>
