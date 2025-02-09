@@ -4,6 +4,7 @@ import './assets/app.css'
 import { computed, ref, type ComputedRef } from 'vue'
 import { onMounted, onUnmounted } from 'vue'
 import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router'
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const currentPath: ComputedRef<string> = computed(() => route.path)
@@ -149,6 +150,7 @@ const copyToClipboard = async (text: string) => {
       </div>
     </main>
   </div>
+  <SpeedInsights />
 </template>
 
 <style scoped>
