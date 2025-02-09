@@ -1,4 +1,12 @@
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka/index.css');
+@font-face {
+  font-family: 'Iosevka';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Iosevka'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka/files/iosevka-latin-400-normal.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka/files/iosevka-latin-400-normal.woff') format('woff');
+}
 
 :root {
   --color-background: #000000;

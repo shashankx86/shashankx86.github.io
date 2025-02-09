@@ -13,6 +13,17 @@ export default defineConfig({
       writeBundle() {
         fs.copyFileSync('public/sitemap.xml', 'dist/sitemap.xml')
       }
+    },
+    {
+      name: 'add-cache-headers',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url?.includes('iosevka')) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          }
+          next();
+        });
+      }
     }
   ],
   resolve: {
