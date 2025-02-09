@@ -9,20 +9,14 @@
     
     <div class="github-stats">
       <img 
-        src="https://github-readme-stats.vercel.app/api?username=shashankx86&theme=dark&show_icons=true&hide_border=true&count_private=true" 
-        alt="GitHub Stats"
+        src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/overview.svg" 
+        alt="Stats"
         class="stats-image"
         loading="lazy"
       />
       <img 
-        src="https://github-readme-streak-stats.herokuapp.com/?user=shashankx86&theme=dark&hide_border=true" 
-        alt="GitHub Streak Stats"
-        class="stats-image"
-        loading="lazy"
-      />
-      <img 
-        src="https://github-readme-stats.vercel.app/api/top-langs/?username=shashankx86&theme=dark&show_icons=true&hide_border=true&layout=compact" 
-        alt="Top Languages"
+        src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/languages.svg" 
+        alt="Languages"
         class="stats-image"
         loading="lazy"
       />
@@ -58,10 +52,13 @@
 
 .github-stats {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
-  gap: 0.5rem;
+  flex-direction: row; /* Changed to row for side-by-side on desktop */
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
   overflow-x: hidden;
+  margin: 1rem 0;
 }
 
 .stats-image {
@@ -88,20 +85,20 @@
   border-bottom-color: rgb(96 165 250);
 }
 
-
 @media (max-width: 768px) {
+  .github-stats {
+    flex-direction: column; /* Stack images on mobile */
+    align-items: flex-start;
+  }
+
   .stats-image {
-    max-width: 400px;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .home-view {
     padding: 0.75rem;
-  }
-
-  .stats-image {
-    max-width: 100%; 
   }
 
   .nav-links {
