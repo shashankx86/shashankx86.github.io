@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /404
+
+# Sitemap
+Sitemap: https://0x5p.dev/sitemap.xml

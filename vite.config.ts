@@ -7,7 +7,13 @@ import * as fs from 'node:fs'
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools()
+    vueDevTools(),
+    {
+      name: 'copy-sitemap',
+      writeBundle() {
+        fs.copyFileSync('public/sitemap.xml', 'dist/sitemap.xml')
+      }
+    }
   ],
   resolve: {
     alias: {
