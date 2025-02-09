@@ -1,43 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { parseMarkdown } from '../utils/markdown'
-import { parseProjectsFormat } from '../utils/markdownParser'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ProjectsList from '../components/ProjectsList.vue'
-
-// Add interface definition
-interface ProjectItem {
-  title: string;
-  description: string;
-  subItems: Array<{
-    text: string;
-    link?: string;
-  }>;
-}
+import projectsData from '../assets/projects.json'
 
 const router = useRouter()
-// Add explicit typing to the ref
-const content = ref<ProjectItem[]>([])
-const isLoading = ref<boolean>(true)
-const error = ref<string | null>(null)
-
-// Add error handling wrapper
-const handleError = (err: unknown) => {
-  const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred'
-  error.value = errorMessage
-  content.value = []
-}
-
-onMounted(async () => {
-  try {
-    const rawContent = await parseMarkdown('/projects/projects.md')
-    content.value = parseProjectsFormat(rawContent)
-  } catch (err) {
-    handleError(err)
-  } finally {
-    isLoading.value = false
-  }
-})
+const content = ref(projectsData.projects)
 
 const goHome = () => {
   router.push('/')
@@ -46,9 +14,7 @@ const goHome = () => {
 
 <template>
   <div class="projects-view">
-    <div v-if="isLoading" class="loading">Loading...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <ProjectsList v-else :projects="content" />
+    <ProjectsList :projects="content" />
     <div class="back-link">
       <a href="#" @click.prevent="goHome">Back to ~/</a>
     </div>
@@ -62,12 +28,6 @@ const goHome = () => {
   overflow-x: hidden;
   padding: 1rem;
   box-sizing: border-box;
-}
-
-.loading, 
-.error {
-  text-align: center;
-  padding: 1rem;
 }
 
 .back-link {

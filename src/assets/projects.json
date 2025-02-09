@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "title": "Portfolio :)",
+      "description": "My portfolio site. (this)",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/shashankx86.github.io"
+        },
+        {
+          "text": "Site",
+          "link": "https://0x5P.dev"
+        }
+      ]
+    },
+    {
+      "title": "Blukey",
+      "description": "A CLI to set your custom key combo to perform custom key actions.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/blukey"
+        },
+        {
+          "text": "Crates",
+          "link": "https://crates.io/crates/blukey"
+        }
+      ]
+    },
+    {
+      "title": "rms (RunMyScript)",
+      "description": "It is a utility to manage and run local script's on your system",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/rms"
+        }
+      ]
+    },
+    {
+      "title": "Action-ManagaDL",
+      "description": "Bulk manga/manhwa/manhua download using Github Action",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/Action-MangaDL"
+        }
+      ]
+    },
+    {
+      "title": "ExtendedFi",
+      "description": "Hacking JMR540 to turn it into a hacking device.",
+      "subItems": [
+        {
+          "text": "Hackaday",
+          "link": "https://hackaday.io/project/192951-turning-a-lte-router-into-a-versatile-hacking-tool"
+        },
+        {
+          "text": "Github Org",
+          "link": "https://github.com/ExtendedFi"
+        },
+        {
+          "text": "Firmware",
+          "link": "https://github.com/ExtendedFi/JMR540_Firmware"
+        },
+        {
+          "text": "Kernel Source",
+          "link": "https://github.com/ExtendedFi/linux-4.14-mdm9607"
+        }
+      ]
+    },
+    {
+      "title": "DebloaterX",
+      "description": "Debloate your phone.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/DebloaterX"
+        }
+      ]
+    }
+  ]
+}
