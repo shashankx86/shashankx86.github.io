@@ -13,17 +13,6 @@ export default defineConfig({
       writeBundle() {
         fs.copyFileSync('public/sitemap.xml', 'dist/sitemap.xml')
       }
-    },
-    {
-      name: 'add-cache-headers',
-      configureServer(server) {
-        server.middlewares.use((req, res, next) => {
-          if (req.url?.includes('iosevka')) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-          }
-          next();
-        });
-      }
     }
   ],
   resolve: {
@@ -31,46 +20,29 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  publicDir: 'public',
   build: {
-    // Enable minification and compression
+    target: 'esnext', // Optimize for modern browsers
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
         pure_funcs: ['console.log']
-      },
-      format: {
-        comments: false
       }
     },
-    // Enable HTML minification
     rollupOptions: {
-      input: {
-        main: './index.html',
-      },
       output: {
         manualChunks: {
           'vendor': ['vue', 'vue-router'],
+          'utils': ['./src/utils/fontLoader.ts'],
         },
-        // Enable code splitting
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        chunkFileNames: 'assets/[name].[hash].js',
+        entryFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]'
       }
     },
-    // Enable compression size reporting
-    reportCompressedSize: true,
-    // Optimize chunk size
-    chunkSizeWarningLimit: 500,
     cssCodeSplit: true,
-    // Enable source maps for production
-    sourcemap: false
-  },
-  // Enable gzip compression
-  server: {
-    strictPort: true,
-    middlewareMode: false
+    reportCompressedSize: false, // Disable size reporting for faster builds
+    chunkSizeWarningLimit: 500
   }
 })
