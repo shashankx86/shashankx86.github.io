@@ -6,6 +6,16 @@ import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const currentPath: ComputedRef<string> = computed(() => route.path)
+
+// New computed property to get path segments
+const pathSegments: ComputedRef<string[]> = computed(() => {
+  return route.path.split('/').filter(segment => segment !== '')
+})
+
+// Generate path for each segment
+const getPathUpToSegment = (index: number): string => {
+  return '/' + pathSegments.value.slice(0, index + 1).join('/')
+}
 </script>
 
 <template>
@@ -14,8 +24,12 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
       <div class="nav-path">
         <router-link to="/" class="navbar-brand">~/</router-link>
         <template v-if="currentPath !== '/'">
-          <span class="nav-separator">::</span>
-          <router-link :to="currentPath">{{ currentPath }}</router-link>
+          <template v-for="(segment, index) in pathSegments" :key="index">
+            <span class="nav-separator">::</span>
+            <router-link :to="getPathUpToSegment(index)" class="path-segment">
+              /{{ segment }}
+            </router-link>
+          </template>
         </template>
       </div>
     </nav>
@@ -52,5 +66,13 @@ const currentPath: ComputedRef<string> = computed(() => route.path)
 a {
   color: #ffffff;
   text-decoration: none;
+}
+
+.path-segment {
+  transition: opacity 0.2s;
+}
+
+.path-segment:hover {
+  opacity: 0.8;
 }
 </style>
