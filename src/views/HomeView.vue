@@ -8,18 +8,26 @@
     </div>
     
     <div class="github-stats">
-      <img 
-        src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/overview.svg" 
-        alt="Stats"
-        class="stats-image"
-        loading="lazy"
-      />
-      <img 
-        src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/languages.svg" 
-        alt="Languages"
-        class="stats-image"
-        loading="lazy"
-      />
+      <div class="stats-image-container">
+        <img 
+          src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/overview.svg" 
+          alt="Github Stats"
+          class="stats-image"
+          width="350"
+          height="205"
+          loading="lazy"
+        />
+      </div>
+      <div class="stats-image-container">
+        <img 
+          src="https://raw.githubusercontent.com/shashankx86/github-stats/master/generated/languages.svg" 
+          alt="Languages Stats"
+          class="stats-image"
+          width="350"
+          height="205"
+          loading="lazy"
+        />
+      </div>
     </div>
 
     <div class="nav-links">
@@ -61,10 +69,15 @@
   margin: 1rem 0;
 }
 
+.stats-image-container {
+  width: 350px; /* Changed back to 350px */
+  max-width: 100%;
+  aspect-ratio: 350/205; /* Updated aspect ratio */
+}
+
 .stats-image {
-  max-width: 350px; 
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
 
@@ -89,6 +102,11 @@
   .github-stats {
     flex-direction: column; /* Stack images on mobile */
     align-items: flex-start;
+  }
+
+  .stats-image-container {
+    width: 100%;
+    max-width: 350px; /* Updated max-width */
   }
 
   .stats-image {

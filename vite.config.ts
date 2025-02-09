@@ -59,6 +59,7 @@ export default defineConfig({
   },
   // Enable gzip compression
   server: {
-    middlewareMode: true
+    strictPort: true,
+    middlewareMode: false
   }
 })
