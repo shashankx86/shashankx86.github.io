@@ -2,9 +2,9 @@
   <div class="home-view">
     <div class="home-header">
       <h1>~/<span class="rotating-separator">✳</span></h1>
-      <p>Hi, it's your friendly Linux nerd (arch, btw) Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
-      <p>Rust is my love, We shall unite comrades' 卐</p>
-      <p>Pajama masterr!</p>
+      <p>Hi, it's (arch, btw) Shashank, and I go by many alias — shashankx86, 0x5P, and nerd7</p>
+      <p>Jack of all trades' master of none. We shall unite comrades' 卐</p>
+      <p>"It's the insanity which makes me insane" - me</p>
     </div>
     
     <div class="github-stats">
