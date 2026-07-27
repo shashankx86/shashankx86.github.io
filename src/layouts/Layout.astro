@@ -25,7 +25,21 @@ const metaDescription = description || "Hi, I'm Shashank (0x5P) - A passionate L
     <link rel="me" href="https://anilist.co/user/nerd7" />
     <link rel="icon" href="/favicon.ico" />
     <title>{pageTitle}</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload"
+          href="/fonts/iosevka-latin-400-normal.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous" />
+    <style>
+      @font-face {
+        font-family: 'Iosevka';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Iosevka'),
+             url('/fonts/iosevka-latin-400-normal.woff2') format('woff2');
+      }
+    </style>
   </head>
   <body>
     <Navbar />
