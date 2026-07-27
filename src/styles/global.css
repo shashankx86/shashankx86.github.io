@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Iosevka';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Iosevka'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka/files/iosevka-latin-400-normal.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/iosevka/files/iosevka-latin-400-normal.woff') format('woff');
+}
+
+:root {
+  --color-background: #000000;
+  --color-text: #ffffff;
+  --navbar-height: 60px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.2;
+  font-family: 'Iosevka';
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+  line-height: 1.2;
+}
+
+p + p {
+  margin-top: 0;
+}

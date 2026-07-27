@@ -1,0 +1,66 @@
+<nav class="navbar">
+  <div class="nav-path">
+    <a href="/" class="navbar-brand">~/</a>
+    <span class="nav-separator">::</span>
+    <a href="https://github.com/shashankx86" target="_blank" rel="noopener" class="path-segment">GITHUB</a>
+    <span class="nav-separator">::</span>
+    <a href="/projects" class="path-segment">PROJECTS</a>
+    <span class="nav-separator">::</span>
+    <a href="/blog" class="path-segment">BLOG</a>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  .nav-path {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.1rem;
+  }
+
+  .navbar-brand {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+
+  .nav-separator {
+    color: #ffffff;
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  .path-segment {
+    color: #ffffff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .path-segment:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 0 0.75rem;
+    }
+
+    .nav-path {
+      font-size: 0.95rem;
+    }
+  }
+</style>
