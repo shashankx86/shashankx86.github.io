@@ -17,126 +17,115 @@ interface Props {
 const { projects } = Astro.props;
 ---
 
-<div class="projects-list">
-  {projects.map((project) => (
-    <article class="project-entry">
-      <div class="project-header">
-        <span class="project-title">{project.title}</span>
+<div class="tree-container">
+  <ul class="tree">
+    {projects.map((project) => (
+      <li>
+        <span class="project-name">{project.title}</span>
         {project.description && (
-          <span class="project-description">{project.description}</span>
+          <div class="description">{project.description}</div>
         )}
-      </div>
-      {project.subItems.length > 0 && (
-        <ul class="project-links">
-          {project.subItems.map((item) => (
-            <li class="link-item">
-              <span class="link-prefix">◂</span>
-              {item.link ? (
-                <a href={item.link} target="_blank" rel="noopener">
-                  {item.text}
-                  <svg class="external-link-icon" viewBox="0 0 24 24" width="12" height="12">
-                    <path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-                  </svg>
-                </a>
-              ) : (
-                <span>{item.text}</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-    </article>
-  ))}
+        {project.subItems.length > 0 && (
+          <ul class="sub-tree">
+            {project.subItems.map((item) => (
+              <li>
+                {item.link ? (
+                  <a href={item.link} class="link" target="_blank" rel="noopener">{item.text}<svg class="external-link-icon" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" /></svg></a>
+                ) : (
+                  <span>{item.text}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
 </div>
 
 <style>
-  .projects-list {
-    width: 100%;
+  .tree-container {
+    margin-top: 15px;
   }
 
-  .project-entry {
-    margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
-    background: #0d0d0d;
-    transition: background 0.2s;
-  }
-
-  .project-entry:hover {
-    background: #111;
-  }
-
-  .project-header {
-    margin-bottom: 0.5rem;
-  }
-
-  .project-title {
-    display: block;
-    color: #fff;
-    font-size: 1.1rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .project-description {
-    display: block;
-    color: #888;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .project-links {
+  .tree,
+  .tree ul {
     list-style: none;
-    padding: 0;
-    margin: 0.5rem 0 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
+    padding-left: 0;
+    margin: 0;
   }
 
-  .link-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.85rem;
+  .tree ul {
+    margin-left: 7px;
+    border-left: 2px solid rgb(239 68 68);
+    padding-left: 26px;
   }
 
-  .link-prefix {
-    color: #555;
+  .tree li {
+    position: relative;
+    margin-top: 14px;
   }
 
-  .link-item a {
-    color: rgb(96 165 250);
+  .tree li::before {
+    content: "";
+    position: absolute;
+    left: -26px;
+    top: 10px;
+    width: 20px;
+    height: 2px;
+    background-color: rgb(239 68 68);
+  }
+
+  .tree ul > li:last-child::after {
+    content: "";
+    position: absolute;
+    left: -27px;
+    top: 12px;
+    bottom: 0;
+    width: 3px;
+    background-color: #000000;
+  }
+
+  .project-name {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .description {
+    color: #8b949e;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 6px;
+  }
+
+  a.link {
+    color: rgb(239 68 68);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
+    font-size: 14px;
   }
 
-  .link-item a:hover {
-    border-bottom-color: rgb(96 165 250);
+  a.link:hover {
+    text-decoration: underline;
   }
 
-  .external-link-icon {
+  a.link .external-link-icon {
     opacity: 0.6;
     transition: opacity 0.2s;
+    vertical-align: middle;
+    margin-left: 3px;
   }
 
-  .link-item a:hover .external-link-icon {
+  a.link:hover .external-link-icon {
     opacity: 1;
   }
 
-  @media (max-width: 480px) {
-    .project-entry {
-      padding: 0.5rem 0.75rem;
-    }
+  .sub-tree {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
 
-    .project-title {
-      font-size: 1rem;
-    }
-
-    .project-description {
-      font-size: 0.85rem;
-    }
+  .sub-tree li {
+    margin-top: 6px;
   }
 </style>

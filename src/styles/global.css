@@ -58,7 +58,7 @@ p + p {
 }
 
 .prose a {
-  color: rgb(96 165 250);
+  color: rgb(239 68 68);
 }
 
 .prose a:hover {
@@ -89,7 +89,7 @@ p + p {
 }
 
 .prose blockquote {
-  border-left: 3px solid rgb(96 165 250);
+  border-left: 3px solid rgb(239 68 68);
   padding-left: 1rem;
   color: #aaa;
   margin: 0.75rem 0;
