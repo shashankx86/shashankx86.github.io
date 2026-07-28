@@ -10,7 +10,11 @@ interface Project {
   subItems: SubItem[];
 }
 
-const { projects }: { projects: Project[] } = Astro.props;
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
 ---
 
 <div class="projects-list">
@@ -51,14 +55,14 @@ const { projects }: { projects: Project[] } = Astro.props;
   }
 
   .project-entry {
-    margin-bottom: 1.5rem;
-    padding: 0.75rem;
-    border: 1px solid #222;
-    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: #0d0d0d;
+    transition: background 0.2s;
   }
 
   .project-entry:hover {
-    border-color: #333;
+    background: #111;
   }
 
   .project-header {
@@ -124,7 +128,7 @@ const { projects }: { projects: Project[] } = Astro.props;
 
   @media (max-width: 480px) {
     .project-entry {
-      padding: 0.5rem;
+      padding: 0.5rem 0.75rem;
     }
 
     .project-title {
