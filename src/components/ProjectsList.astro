@@ -13,17 +13,20 @@ interface Project {
 const { projects }: { projects: Project[] } = Astro.props;
 ---
 
-<ul class="projects-list">
+<div class="projects-list">
   {projects.map((project) => (
-    <li class="project-item">
-      <span class="project-title">{project.title}</span>
-      {project.description && (
-        <span class="project-description">{project.description}</span>
-      )}
+    <article class="project-entry">
+      <div class="project-header">
+        <span class="project-title">{project.title}</span>
+        {project.description && (
+          <span class="project-description">{project.description}</span>
+        )}
+      </div>
       {project.subItems.length > 0 && (
-        <ul class="sub-items">
+        <ul class="project-links">
           {project.subItems.map((item) => (
-            <li class="sub-item">
+            <li class="link-item">
+              <span class="link-prefix">◂</span>
               {item.link ? (
                 <a href={item.link} target="_blank" rel="noopener">
                   {item.text}
@@ -38,109 +41,98 @@ const { projects }: { projects: Project[] } = Astro.props;
           ))}
         </ul>
       )}
-    </li>
+    </article>
   ))}
-</ul>
+</div>
 
 <style>
   .projects-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 18px;
-    font-weight: normal;
+    width: 100%;
   }
 
-  .project-item {
-    margin-bottom: 0.75rem;
-    position: relative;
-    padding-left: 1.5rem;
+  .project-entry {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    border: 1px solid #222;
+    transition: border-color 0.2s;
   }
 
-  .project-item::before {
-    content: "◈";
-    color: rgb(96 165 250);
-    position: absolute;
-    left: 0;
+  .project-entry:hover {
+    border-color: #333;
+  }
+
+  .project-header {
+    margin-bottom: 0.5rem;
   }
 
   .project-title {
     display: block;
-    font-size: 18px;
-    font-weight: normal;
-    line-height: 1.2;
-    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
   }
 
   .project-description {
     display: block;
-    margin: 0;
-    color: var(--color-text);
-    opacity: 0.8;
-    line-height: 1.2;
-    font-size: 18px;
+    color: #888;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
-  .sub-items {
+  .project-links {
     list-style: none;
-    padding-left: 1.5rem;
-    margin: 0.15rem 0 0 0;
-    font-size: 18px;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
   }
 
-  .sub-item {
-    position: relative;
-    padding-left: 1.5rem;
-    margin: 0.1rem 0;
-    line-height: 1.2;
-    font-size: 18px;
-  }
-
-  .sub-item::before {
-    content: "◇";
-    position: absolute;
-    left: 0;
-    color: rgb(78, 129, 191);
-    opacity: 0.9;
-  }
-
-  .sub-item a {
-    color: var(--color-text);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color 0.2s, opacity 0.2s;
-    font-size: 18px;
-    font-weight: normal;
+  .link-item {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.3rem;
+    font-size: 0.85rem;
   }
 
-  .sub-item a:hover {
-    border-bottom-color: var(--color-text);
+  .link-prefix {
+    color: #555;
+  }
+
+  .link-item a {
+    color: rgb(96 165 250);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .link-item a:hover {
+    border-bottom-color: rgb(96 165 250);
   }
 
   .external-link-icon {
-    opacity: 0.7;
+    opacity: 0.6;
     transition: opacity 0.2s;
   }
 
-  .sub-item a:hover .external-link-icon {
+  .link-item a:hover .external-link-icon {
     opacity: 1;
   }
 
   @media (max-width: 480px) {
-    .project-title,
-    .project-description,
-    .sub-items,
-    .sub-item,
-    .sub-item a {
-      font-size: 16px;
+    .project-entry {
+      padding: 0.5rem;
     }
 
-    .external-link-icon {
-      width: 10px;
-      height: 10px;
+    .project-title {
+      font-size: 1rem;
+    }
+
+    .project-description {
+      font-size: 0.85rem;
     }
   }
 </style>

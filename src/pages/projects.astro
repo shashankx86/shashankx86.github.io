@@ -6,9 +6,12 @@ import projectsData from '../data/projects.json';
 
 <Layout title="Projects">
   <div class="projects-view">
+    <h1 class="page-heading">~/projects</h1>
+    <p class="page-subtitle">stuff I've built</p>
+    <hr class="separator" />
     <ProjectsList projects={projectsData.projects} />
     <div class="back-link">
-      <a href="/">Back to ~/</a>
+      <a href="/">◂ back to ~/</a>
     </div>
   </div>
 </Layout>
@@ -22,6 +25,22 @@ import projectsData from '../data/projects.json';
     box-sizing: border-box;
   }
 
+  .page-heading {
+    margin-bottom: 0.3rem;
+  }
+
+  .page-subtitle {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .separator {
+    border: none;
+    border-top: 1px solid rgb(96 165 250);
+    margin: 0.5rem 0 1.5rem;
+  }
+
   .back-link {
     margin-top: 2rem;
   }
@@ -29,12 +48,11 @@ import projectsData from '../data/projects.json';
   .back-link a {
     color: rgb(96 165 250);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color 0.2s;
+    font-size: 0.9rem;
   }
 
   .back-link a:hover {
-    border-bottom-color: rgb(96 165 250);
+    text-decoration: underline;
   }
 
   @media (max-width: 480px) {
