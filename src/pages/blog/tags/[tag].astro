@@ -26,7 +26,7 @@ const posts = (await getCollection('blog', ({ data }) => {
 <Layout title={`#${tag}`} description={`Posts tagged with #${tag}`}>
   <div class="tag-view">
     <h1>~/blog/tags/<span class="tag-label">#{tag}</span></h1>
-    <p class="count">◈ {posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+    <p class="count">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
     <hr class="separator" />
 
     <a href="/blog" class="back-link">◂ all posts</a>

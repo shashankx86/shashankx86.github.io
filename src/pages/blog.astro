@@ -11,11 +11,11 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
 <Layout title="Blog" description="rants & tech info">
   <div class="blog-index">
     <h1>~/blog</h1>
-    <p class="subtitle">◈ rants &amp; tech info</p>
+    <p class="subtitle">rants &amp; tech info</p>
 
     <div class="search-bar">
       <input type="text" id="search-input" placeholder="search posts..." aria-label="Search blog posts" />
-      <span class="search-hint">◈ type to filter</span>
+      <span class="search-hint">type to filter</span>
     </div>
 
     <div class="tag-cloud">
@@ -41,7 +41,7 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
             </time>
             {post.data.tags.length > 0 && (
               <span class="tags">
-                :: {post.data.tags.map(t => <a href={`/blog/tags/${t}/`} class="tag">#{t}</a>)}
+                <span class="meta-sep"> :: </span>{post.data.tags.map(t => <a href={`/blog/tags/${t}/`} class="tag">#{t}</a>)}
               </span>
             )}
           </div>
@@ -54,7 +54,7 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
       ))}
     </div>
 
-    <div id="no-results" class="no-results hidden">no posts match your search ◈</div>
+    <div id="no-results" class="no-results hidden">no posts match your search</div>
   </div>
 </Layout>
 
