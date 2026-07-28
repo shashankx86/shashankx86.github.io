@@ -1,0 +1,63 @@
+---
+title: "Rust Ownership, Simplified"
+description: "A terminal-native explanation of Rust's ownership model — no fluff, just clarity"
+pubDate: 2024-07-15
+tags: ["rust", "systems-programming", "beginner"]
+draft: false
+---
+
+Rust's ownership model is infamous. Let's demystify it.
+
+## The Rules
+
+Three rules. That's it.
+
+1. **Each value has one owner** at any given time.
+2. **When the owner goes out of scope**, the value is dropped.
+3. **You may have either** one mutable reference or any number of immutable references.
+
+## Visualizing Ownership
+
+Think of a value as a physical object — say, a book.
+
+```
+let book = String::from("The Rust Book");
+// book owns the string
+```
+
+If you lend it to someone (immutable reference), they can read it but not modify it:
+
+```rust
+let reader = &book;   // borrow: read-only
+println!("{}", reader);
+// book is still yours
+```
+
+If you hand it over (move), you no longer have it:
+
+```rust
+let thief = book;    // move: book is gone
+// println!("{}", book); // ERROR: value used here after move
+```
+
+## Why This Matters
+
+No garbage collector. No manual memory management. The compiler guarantees memory safety at compile time.
+
+The borrow checker isn't trying to frustrate you — it's ensuring your program has no:
+
+- Use-after-free bugs
+- Double-free bugs
+- Data races
+
+## The Trick
+
+If the borrow checker is yelling at you, ask yourself:
+
+> "Who should own this data?"
+
+Usually the answer is: the thing that needs it longest. Pass references for short-term access, pass ownership for long-term.
+
+That's it. Go write some Rust.
+
+◈ 0x5P

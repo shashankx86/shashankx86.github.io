@@ -1,0 +1,168 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => import.meta.env.PROD ? data.draft !== true : true);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const { post } = Astro.props;
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const { Content, remarkPluginFrontmatter } = await render(post);
+const minutesRead = remarkPluginFrontmatter.minutesRead;
+
+const allPosts = await getCollection('blog', ({ data }) => import.meta.env.PROD ? data.draft !== true : true);
+const tags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="blog-post">
+    <div class="post-header">
+      <div class="post-meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric',
+          })}
+        </time>
+        <span class="meta-sep"> :: </span>
+        <span class="reading-time">{minutesRead || 'reading'}</span>
+        {post.data.updatedDate && (
+          <>
+            <span class="meta-sep"> :: </span>
+            <span class="updated">updated: {post.data.updatedDate.toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            })}</span>
+          </>
+        )}
+      </div>
+      {post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map(tag => <a href={`/blog/tags/${tag}/`} class="tag">#{tag}</a>)}
+        </div>
+      )}
+      <h1>{post.data.title}</h1>
+      <hr class="title-sep" />
+    </div>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <div class="post-footer">
+      <hr class="footer-sep" />
+      <div class="footer-links">
+        <a href="/blog" class="back-link">◂ back to ~/blog</a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .blog-post {
+    width: 100%;
+    max-width: 720px;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-meta {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .post-meta time {
+    color: rgb(96 165 250);
+  }
+
+  .meta-sep {
+    color: #555;
+  }
+
+  .reading-time {
+    color: #666;
+  }
+
+  .updated {
+    color: #888;
+  }
+
+  .tags {
+    margin: 0.5rem 0;
+  }
+
+  .tag {
+    color: rgb(96 165 250);
+    text-decoration: none;
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+    border: 1px solid #333;
+    padding: 0.1rem 0.4rem;
+    transition: border-color 0.2s;
+  }
+
+  .tag:hover {
+    border-color: rgb(96 165 250);
+  }
+
+  .post-header h1 {
+    margin: 0.3rem 0;
+    line-height: 1.2;
+  }
+
+  .title-sep {
+    border: none;
+    border-top: 1px solid rgb(96 165 250);
+    margin: 0.5rem 0;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+  }
+
+  .footer-sep {
+    border: none;
+    border-top: 1px solid #333;
+    margin-bottom: 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .back-link {
+    color: rgb(96 165 250);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .blog-post {
+      padding: 0.75rem;
+    }
+  }
+</style>
