@@ -1,11 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import getReadingTime from 'reading-time';
 
 const allTags = [...new Set((await getCollection('blog', ({ data }) => import.meta.env.PROD ? data.draft !== true : true)).flatMap(p => p.data.tags))].sort();
 
 const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? data.draft !== true : true))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map(post => ({
+    ...post,
+    minutesRead: getReadingTime(post.body || '').text,
+  }));
 ---
 
 <Layout title="Blog" description="rants & tech info">
@@ -39,6 +44,8 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
                 year: 'numeric', month: 'short', day: 'numeric',
               })}
             </time>
+            <span class="meta-sep"> :: </span>
+            <span class="reading-time">{post.minutesRead}</span>
             {post.data.tags.length > 0 && (
               <span class="tags">
                 <span class="meta-sep"> :: </span>{post.data.tags.map(t => <a href={`/blog/tags/${t}/`} class="tag">#{t}</a>)}
