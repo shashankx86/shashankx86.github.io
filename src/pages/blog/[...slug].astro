@@ -27,7 +27,7 @@ const allPosts = await getCollection('blog', ({ data }) => import.meta.env.PROD 
 const tags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} pubDate={post.data.pubDate} updatedDate={post.data.updatedDate} tags={post.data.tags} pageType="article">
   <article class="blog-post">
     <div class="post-header">
       <div class="post-meta">

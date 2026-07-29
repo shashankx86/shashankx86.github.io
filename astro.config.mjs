@@ -12,5 +12,8 @@ export default defineConfig({
       remarkPlugins: [remarkReadingTime],
     }),
   },
+  image: {
+    service: { entrypoint: 'astro/assets/services/sharp' },
+  },
   integrations: [mdx(), sitemap()],
 });

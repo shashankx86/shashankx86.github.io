@@ -5,11 +5,87 @@ import Navbar from '../components/Navbar.astro';
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  pageType?: 'website' | 'article';
 }
 
-const { title, description } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, pageType } = Astro.props;
 const pageTitle = `${title} | 0x5P`;
-const metaDescription = description || "Hi, I'm Shashank (0x5P) - A passionate Linux enthusiast and Rust developer.";
+const metaDescription = description || "Jack of all trades master of none.";
+const site = Astro.site;
+const url = Astro.url;
+const canonicalUrl = Astro.props.canonical || (site ? new URL(url.pathname, site).href : url.href);
+const ogId = url.pathname.startsWith('/blog/tags/')
+  ? url.pathname.replace(/\//g, '-').replace(/^-/, '').replace(/-$/, '')
+  : url.pathname.startsWith('/blog/') ? 'blog'
+  : url.pathname.replace(/\//g, '-').replace(/^-/, '').replace(/-$/, '') || 'default';
+const ogImageUrl = Astro.props.ogImage || `${site}og/${ogId}.png`;
+const siteName = '0x5P';
+const locale = 'en_US';
+const authorName = 'Shashank (0x5P)';
+
+const pathSegments = url.pathname.split('/').filter(Boolean);
+const breadcrumbItems = [{ name: 'Home', path: '/' }];
+let accumulated = '';
+for (const segment of pathSegments) {
+  accumulated += `/${segment}`;
+  breadcrumbItems.push({
+    name: segment.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    path: accumulated,
+  });
+}
+
+const graph = [
+  {
+    '@type': 'Person',
+    '@id': `${site}#person`,
+    name: authorName,
+    url: `${site}`,
+    sameAs: ['https://github.com/shashankx86', 'https://anilist.co/user/nerd7'],
+    knowsAbout: ['C', 'Linux', 'System Programming', 'Rust', 'Cybersecurity', 'Reverse engineering', 'Web'],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${site}#website`,
+    url: `${site}`,
+    name: siteName,
+    description: metaDescription,
+    publisher: { '@id': `${site}#person` },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${canonicalUrl}#breadcrumb`,
+    itemListElement: breadcrumbItems.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.path.startsWith('http') ? item.path : new URL(item.path, site).href,
+
+    })),
+  },
+];
+
+if (pubDate) {
+  graph.push({
+    '@type': 'BlogPosting',
+    '@id': `${canonicalUrl}#article`,
+    headline: title,
+    description: metaDescription,
+    url: canonicalUrl,
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate || pubDate).toISOString(),
+    author: { '@id': `${site}#person` },
+    publisher: { '@id': `${site}#person` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    ...(tags?.length ? { keywords: tags.join(', ') } : {}),
+  });
+}
+
+const ldJson = { '@context': 'https://schema.org', '@graph': graph };
 ---
 
 <!doctype html>
@@ -19,13 +95,30 @@ const metaDescription = description || "Hi, I'm Shashank (0x5P) - A passionate L
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={metaDescription} />
     <meta name="author" content="Shashank (0x5P/shashankx86)" />
-    <meta name="keywords" content="Rust Developer, Linux Expert, Open Source, Programming, Arch Linux, System Programming, Security Tools, Tech Blog, shashankx86, 0x5P" />
-    <link rel="canonical" href="https://0x5p.dev/" />
+    <meta name="keywords" content="Linux Expert, Open Source, Programming, Arch Linux, System Programming, Security Tools, Tech Blog, shashankx86, 0x5P, Reverse engineering, Cybersecurity, C, Rust" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="me" href="https://github.com/shashankx86" />
     <link rel="me" href="https://anilist.co/user/nerd7" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="alternate" type="application/rss+xml" title="0x5P's Blog" href="/rss.xml" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={pageType === 'article' ? 'article' : 'website'} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:image" content={ogImageUrl} />
+    {pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
+    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+    {pageType === 'article' && <meta property="article:author" content={authorName} />}
+    {tags?.map(tag => <meta property="article:tag" content={tag} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <title>{pageTitle}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(ldJson)}></script>
     <link rel="preload"
           href="/fonts/iosevka-latin-400-normal.woff2"
           as="font"

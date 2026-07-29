@@ -58,7 +58,7 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
   </div>
 </Layout>
 
-<script is:inline>
+<script>
   const input = document.getElementById('search-input');
   const list = document.getElementById('post-list');
   const noResults = document.getElementById('no-results');

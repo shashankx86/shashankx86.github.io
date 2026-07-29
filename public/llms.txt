@@ -1,0 +1,14 @@
+# 0x5P — Shashank's personal site
+
+> Jack of all trades, master of none. Linux, Rust, system programming, cybersecurity, and reverse engineering.
+
+## Blog
+
+- [Hello, World](https://0x5p.dev/blog/hello-world/): The inaugural post — setting up this terminal-themed blog with Astro
+
+## About
+
+Shashank (0x5P / shashankx86 / nerd7) is a systems programmer and Linux enthusiast. Areas of focus: C, Rust, Linux system programming, cybersecurity, reverse engineering, and security tooling.
+
+- GitHub: https://github.com/shashankx86
+- AniList: https://anilist.co/user/nerd7
