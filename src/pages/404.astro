@@ -2,12 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="404 Not Found">
+<Layout title="404">
   <div class="not-found-view">
-    <div class="not-found-content">
-      <div class="error-code gradient-text">404!</div>
-      <div class="error-text">Page not found.</div>
-    </div>
+    <h1>~/404</h1>
+    <p class="page-subtitle">lost in hyperspace?</p>
+    <a href="/" class="back-btn">< back to ~/</a>
   </div>
 </Layout>
 
@@ -16,61 +15,35 @@ import Layout from '../layouts/Layout.astro';
     width: 100%;
     height: calc(100vh - var(--navbar-height));
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-
-  .not-found-content {
     text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
   }
 
-  .error-code {
+  h1 {
     font-size: 6rem;
-    font-weight: bold;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
   }
 
-  .gradient-text {
-    background: linear-gradient(
-      300deg,
-      #000000,
-      #ef4444,
-      #ff4a4a,
-      #ef4444,
-      #000000
-    );
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient 5s ease infinite;
+  .page-subtitle {
+    color: #8b949e;
+    font-size: 13px;
+    margin-bottom: 2rem;
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  .back-btn {
+    display: inline-block;
+    color: rgb(239 68 68);
+    text-decoration: none;
+    font-size: 13px;
   }
 
-  .error-text {
-    font-size: 1.2rem;
-    color: #808080;
-    margin-top: -1rem;
-  }
-
-  @media (max-width: 480px) {
-    .error-code {
-      font-size: 4rem;
-    }
-
-    .error-text {
-      font-size: 1rem;
-      margin-top: -0.5rem;
-    }
+  .back-btn:hover {
+    text-decoration: underline;
   }
 </style>
