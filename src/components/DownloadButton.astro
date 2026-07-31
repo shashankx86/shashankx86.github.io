@@ -1,0 +1,109 @@
+---
+interface Props {
+  href: string;
+  size?: string;
+  sha256?: string;
+  label?: string;
+  filename?: string;
+  desc?: string;
+}
+
+const { href, size, sha256, label = 'Download', filename, desc } = Astro.props;
+const displayName = filename ?? href.split('/').filter(Boolean).pop() ?? '';
+const isSameOrigin = href.startsWith('/') || (Astro.site ? href.startsWith(Astro.site.origin) : false);
+const isExternal = !href.startsWith('/');
+---
+
+<div class="download">
+  <a
+    class="dl-main"
+    href={href}
+    download={isSameOrigin ? (filename ?? true) : undefined}
+    rel={isExternal ? 'noreferrer' : undefined}
+  >
+    <span class="dl-left">
+      <svg
+        class="dl-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+      <span class="dl-label">{label}</span>
+    </span>
+    <span class="dl-name">{displayName}</span>
+  </a>
+  {(desc || size || sha256) && (
+    <div class="dl-meta">
+      {desc && <span class="dl-desc">{desc}</span>}
+      {size && <span class="dl-size">size: {size}</span>}
+      {sha256 && <span class="dl-hash">sha256: {sha256}</span>}
+    </div>
+  )}
+</div>
+
+<style>
+  .download {
+    display: inline-block;
+    max-width: 100%;
+    min-width: 280px;
+    margin: 0.4rem 0;
+    border: 1px solid #333;
+    background: #111;
+  }
+
+  .dl-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.15rem 0.6rem;
+    border-bottom: 1px solid #333;
+    color: rgb(239 68 68);
+    text-decoration: none;
+  }
+
+  .dl-main:hover {
+    background: #1a1a1a;
+    text-decoration: none;
+  }
+
+  .dl-main:focus-visible {
+    outline: 1px solid rgb(239 68 68);
+    outline-offset: -1px;
+  }
+
+  .dl-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .dl-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  .dl-name {
+    color: #fff;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .dl-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.2rem 0.6rem;
+    color: #888;
+    font-size: 0.8rem;
+  }
+</style>

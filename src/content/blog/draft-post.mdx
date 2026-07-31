@@ -7,3 +7,11 @@ draft: true
 ---
 
 This should only appear in dev mode.
+
+import DownloadButton from '../../components/DownloadButton.astro';
+
+<DownloadButton href="/files/demo.tar.gz" size="1.2 MB" sha256="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" desc="Includes source and prebuilt binaries" />
+
+<DownloadButton href="https://example.com/other.zip" label="Grab it" size="45 KB" />
+
+<DownloadButton href="/files/simple.bin" />
