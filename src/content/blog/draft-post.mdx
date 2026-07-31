@@ -15,3 +15,151 @@ import DownloadButton from '../../components/DownloadButton.astro';
 <DownloadButton href="https://example.com/other.zip" label="Grab it" size="45 KB" />
 
 <DownloadButton href="/files/simple.bin" />
+
+## rust
+
+```rust
+use std::io::{self, Write};
+
+struct Fibonacci {
+    a: u64,
+    b: u64,
+}
+
+impl Iterator for Fibonacci {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<u64> {
+        let next = self.a + self.b;
+        self.a = self.b;
+        self.b = next;
+        Some(next)
+    }
+}
+
+fn main() {
+    let fib = Fibonacci { a: 0, b: 1 };
+    for (i, n) in fib.take(10).enumerate() {
+        println!("fib({i}) = {n}");
+    }
+    let _ = io::stdout().flush();
+}
+```
+
+## c
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "usage: %s <input>\n", argv[0]);
+        return 1;
+    }
+    size_t len = strlen(argv[1]);
+    for (size_t i = 0; i < len; i++) {
+        char c = argv[1][i];
+        if (c >= 'a' && c <= 'z') {
+            c = c - 'a' + 'A';
+        }
+        putchar(c);
+    }
+    putchar('\n');
+    return 0;
+}
+```
+
+## bash
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    echo "usage: $0 <dir> [days]"
+    exit 1
+}
+
+[ $# -ge 1 ] || usage
+dir="$1"
+days="${2:-7}"
+
+find "$dir" -type f -mtime +"$days" -print0 |
+    while IFS= read -r -d '' file; do
+        size=$(stat -c %s "$file")
+        printf "%10d %s\n" "$size" "$file"
+    done |
+    sort -rn |
+    head -20
+```
+
+## python
+
+```python
+#!/usr/bin/env python3
+import argparse
+import sys
+from pathlib import Path
+
+
+def count_lines(path: Path) -> int:
+    n = 0
+    with path.open(errors="replace") as fh:
+        for _ in fh:
+            n += 1
+    return n
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="count lines of files")
+    parser.add_argument("files", nargs="+", type=Path)
+    args = parser.parse_args()
+
+    total = 0
+    for path in args.files:
+        n = count_lines(path)
+        total += n
+        print(f"{n:8d} {path}")
+
+    if len(args.files) > 1:
+        print(f"{total:8d} total")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## go
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+	args := os.Args[1:]
+	if len(args) == 0 {
+		fmt.Fprintln(os.Stderr, "usage: hexdump <input>")
+		os.Exit(1)
+	}
+
+	data := []byte(strings.Join(args, " "))
+	for i := 0; i < len(data); i += 16 {
+		end := i + 16
+		if end > len(data) {
+			end = len(data)
+		}
+		fmt.Printf("%04x  ", i)
+		for _, b := range data[i:end] {
+			fmt.Printf("%02x ", b)
+		}
+		fmt.Println()
+	}
+}
+```
