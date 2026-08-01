@@ -79,6 +79,16 @@
           "link": "https://github.com/shashankx86/DebloaterX"
         }
       ]
+    },
+    {
+      "title": "OrangeFox Unlock",
+      "description": "Remove builtin lock from Orangefox custom recovery.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/orangefox-unlock"
+        }
+      ]
     }
   ]
 }
