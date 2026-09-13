@@ -3,37 +3,52 @@ import Layout from '../layouts/Layout.astro';
 import BackButton from '../components/BackButton.astro';
 ---
 
-<Layout title="404">
-  <div class="not-found-view">
+<Layout title="404" description="Page not found.">
+  <div class="not-found">
     <h1>~/404</h1>
-    <p class="page-subtitle">lost in hyperspace?</p>
+    <p class="sub">nothing here.</p>
+    <div class="links">
+      <a href="/" class="special-link">~/</a> - back home<br />
+      <a href="/projects" class="special-link">~/projects</a> - see my supaar projects<br />
+      <a href="/blog" class="special-link">~/blog</a> - to read my civilised rant & some juicy tech info<br />
+    </div>
     <BackButton />
   </div>
 </Layout>
 
 <style>
-  .not-found-view {
+  .not-found {
     width: 100%;
-    height: calc(100vh - var(--navbar-height));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     padding: 1rem;
     box-sizing: border-box;
   }
-
   h1 {
-    font-size: 6rem;
-    font-weight: 700;
-    color: #ffffff;
     margin-bottom: 0.3rem;
   }
-
-  .page-subtitle {
+  .sub {
     color: #8b949e;
     font-size: 13px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+  }
+  .links {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .special-link {
+    color: rgb(239 68 68);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.2s;
+  }
+  .special-link:hover {
+    border-bottom-color: rgb(239 68 68);
+  }
+  @media (max-width: 480px) {
+    .not-found {
+      padding: 0.75rem;
+    }
+    .links {
+      font-size: 0.9rem;
+    }
   }
 </style>
