@@ -1,0 +1,74 @@
+---
+interface Props {
+  /** Where to fall back to when the previous page is unknown or off-site. */
+  href?: string;
+  /** Label used when the previous page can't be determined. */
+  label?: string;
+  /** Adds extra space above the link for pages that need it. */
+  spaced?: boolean;
+}
+
+const { href = '/', label = '< back to ~/', spaced = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['back-btn', spaced && 'back-btn-spaced']}
+  data-back-link
+>
+  {label}
+</a>
+
+<script>
+  // The previous page is only visible through document.referrer, and only when
+  // this page was reached by a regular navigation. When it's empty or points
+  // off-site, the link keeps its passed label and falls back to its href.
+  let referrer;
+  try {
+    referrer = new URL(document.referrer);
+  } catch {
+    referrer = null;
+  }
+
+  const cameFromThisSite = referrer !== null && referrer.origin === window.location.origin;
+
+  for (const link of document.querySelectorAll('[data-back-link]')) {
+    if (cameFromThisSite) {
+      // Show where this button actually leads: the page just visited.
+      const path = referrer.pathname.replace(/\/$/, '') || '/';
+      link.textContent = `< back to ~${path}`;
+      link.href = document.referrer;
+    }
+
+    link.addEventListener('click', (event) => {
+      // Plain left clicks only. Modified clicks (new tab, new window) keep the
+      // default link behavior.
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      // Only go back within this site. history.back() would leave for an
+      // external page if that's where the visitor came from; instead let the
+      // anchor navigate to its href fallback.
+      if (cameFromThisSite && window.history.length > 1) {
+        event.preventDefault();
+        window.history.back();
+      }
+    });
+  }
+</script>
+
+<style>
+  .back-btn {
+    display: inline-block;
+    color: rgb(239 68 68);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .back-btn:hover {
+    text-decoration: underline;
+  }
+
+  .back-btn-spaced {
+    margin-top: 36px;
+  }
+</style>

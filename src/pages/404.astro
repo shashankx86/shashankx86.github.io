@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BackButton from '../components/BackButton.astro';
 ---
 
 <Layout title="404">
   <div class="not-found-view">
     <h1>~/404</h1>
     <p class="page-subtitle">lost in hyperspace?</p>
-    <a href="/" class="back-btn">< back to ~/</a>
+    <BackButton />
   </div>
 </Layout>
 
@@ -34,16 +35,5 @@ import Layout from '../layouts/Layout.astro';
     color: #8b949e;
     font-size: 13px;
     margin-bottom: 2rem;
-  }
-
-  .back-btn {
-    display: inline-block;
-    color: rgb(239 68 68);
-    text-decoration: none;
-    font-size: 13px;
-  }
-
-  .back-btn:hover {
-    text-decoration: underline;
   }
 </style>
