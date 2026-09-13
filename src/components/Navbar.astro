@@ -1,12 +1,9 @@
 <nav class="navbar">
   <div class="nav-path">
     <a href="/" class="navbar-brand">~/</a>
-    <span class="nav-separator">::</span>
-    <a href="https://github.com/shashankx86" target="_blank" rel="noopener" class="path-segment">GITHUB</a>
-    <span class="nav-separator">::</span>
-    <a href="/projects" class="path-segment">PROJECTS</a>
-    <span class="nav-separator">::</span>
-    <a href="/blog" class="path-segment">BLOG</a>
+    <a href="/projects" class="path-segment">[projects]</a>
+    <a href="/blog" class="path-segment">[blog]</a>
+    <a href="https://github.com/shashankx86" target="_blank" rel="noopener" class="path-segment">[github]</a>
   </div>
 </nav>
 
@@ -16,43 +13,48 @@
     height: var(--navbar-height);
     background-color: #000000;
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     display: flex;
     align-items: center;
     padding: 0 1rem;
     z-index: 1000;
     box-sizing: border-box;
-    border-bottom: 1px solid rgb(239 68 68);
+    border-top: 1px solid rgb(239 68 68);
   }
 
   .nav-path {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
+    line-height: 1;
   }
 
   .navbar-brand {
     color: #ffffff;
     text-decoration: none;
-    font-size: 1.3rem;
-  }
-
-  .nav-separator {
-    color: #ffffff;
-    opacity: 0.5;
-    user-select: none;
+    font-size: 1rem;
+    line-height: 1;
   }
 
   .path-segment {
     color: #ffffff;
     text-decoration: none;
-    transition: opacity 0.2s;
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.85;
+    transition: opacity 200ms;
   }
 
-  .path-segment:hover {
-    opacity: 0.8;
+  .path-segment:hover,
+  .path-segment:focus-visible {
+    opacity: 1;
+  }
+
+  .path-segment:focus-visible {
+    outline: 1px solid rgb(239 68 68);
+    outline-offset: 2px;
   }
 
   @media (max-width: 480px) {
@@ -61,7 +63,7 @@
     }
 
     .nav-path {
-      font-size: 1rem;
+      font-size: 0.85rem;
     }
   }
 
