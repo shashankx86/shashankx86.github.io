@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -18,6 +19,9 @@ export default defineConfig({
   },
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
   integrations: [mdx(), sitemap()],
 });
