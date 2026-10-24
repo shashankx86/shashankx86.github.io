@@ -89,6 +89,46 @@
           "link": "https://github.com/shashankx86/orangefox-unlock"
         }
       ]
+    },
+    {
+      "title": "amp",
+      "description": "llama.cpp's server with a memory plan in front of it, tuned to fit a 6 GB laptop GPU.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/amp"
+        }
+      ]
+    },
+    {
+      "title": "rtl8xxxu-overdrive",
+      "description": "Custom rtl8xxxu driver with patches for performance.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/rtl8xxxu-overdrive"
+        }
+      ]
+    },
+    {
+      "title": "Nitro-sense",
+      "description": "AcerSense for Linux (only ANV15-41 support).",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/Nitro-sense"
+        }
+      ]
+    },
+    {
+      "title": "mt792x-overdrive",
+      "description": "Patched mt792x driver for best performance. Supports MT7921, MT7922, MT7920, MT7902, RZ608 and RZ616.",
+      "subItems": [
+        {
+          "text": "Git",
+          "link": "https://github.com/shashankx86/mt792x-overdrive"
+        }
+      ]
     }
   ]
 }
