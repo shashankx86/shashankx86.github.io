@@ -1,35 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProjectsList from '../components/ProjectsList.astro';
-import BackButton from '../components/BackButton.astro';
-import projectsData from '../data/projects.json';
+import ProjectsBrowser from '../components/ProjectsBrowser.astro';
 ---
 
 <Layout title="Projects">
-  <div class="title-area">
-    <h1>~/projects</h1>
-    <p class="page-subtitle">stuff i've built</p>
-  </div>
-
-  <ProjectsList projects={projectsData.projects} />
-
-  <BackButton spaced />
+  <ProjectsBrowser />
 </Layout>
-
-<style>
-  .title-area {
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-size: 30px;
-    font-weight: 700;
-    color: #ffffff;
-  }
-
-  .page-subtitle {
-    color: #8b949e;
-    font-size: 13px;
-    margin-top: 2px;
-  }
-</style>

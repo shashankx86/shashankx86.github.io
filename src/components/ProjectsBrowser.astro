@@ -1,0 +1,346 @@
+---
+import projectsData from '../data/projects.json';
+
+const projects = projectsData.projects;
+const slug = (title: string) =>
+  title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const activeCss = [
+  `.browser:not(:has(.detail:target)) .repo-link.is-default { color: #ffffff; background: var(--active-bg); }`,
+  `.browser:not(:has(.detail:target)) .repo-link.is-default .marker { opacity: 1; }`,
+  ...projects.map((project) => {
+    const id = slug(project.title);
+    return [
+      `.browser:has(#${id}:target) .repo-link[href="#${id}"] { color: #ffffff; background: var(--active-bg); }`,
+      `.browser:has(#${id}:target) .repo-link[href="#${id}"] .marker { opacity: 1; }`,
+    ].join('\n');
+  }),
+].join('\n');
+---
+
+<div class="browser">
+  <div class="side">
+    <p class="path">~/projects</p>
+    <ul class="repos">
+      {projects.map((project, i) => (
+        <li>
+          <a class:list={['repo-link', i === 0 && 'is-default']} href={`#${slug(project.title)}`}>
+            <span class="marker" aria-hidden="true">&gt;</span>
+            {project.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="detail-area">
+    {projects.map((project, i) => (
+      <section class:list={['detail', i === 0 && 'detail-first']} id={slug(project.title)}>
+        <p class="proj-path">~/projects/{slug(project.title)}</p>
+        <h1>{project.title}</h1>
+        <p class="desc">{project.description}</p>
+        <p class="links-label">source</p>
+        <ul class="links">
+          {project.subItems.map((item) => (
+            <li>
+              <a href={item.link} target="_blank" rel="noopener">
+                {item.text}
+                <span class="arrow">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</div>
+
+<script>
+  const strip = document.querySelector<HTMLElement>('.repos');
+
+  if (strip) {
+    const reveal = () => {
+      const link =
+        (location.hash && strip.querySelector<HTMLElement>(`a[href="${location.hash}"]`)) ||
+        strip.querySelector<HTMLElement>('a.is-default');
+
+      if (!link) return;
+
+      const pad = 16;
+      const left = link.offsetLeft - pad;
+      const right = left + link.offsetWidth + pad * 2;
+
+      if (left < strip.scrollLeft) {
+        strip.scrollLeft = left;
+      } else if (right > strip.scrollLeft + strip.clientWidth) {
+        strip.scrollLeft = right - strip.clientWidth;
+      }
+    };
+
+    reveal();
+    window.addEventListener('hashchange', reveal);
+  }
+</script>
+
+<style is:global set:html={activeCss}></style>
+
+<style>
+  .browser {
+    --active-bg: #0d0d0d;
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+    padding-top: 8px;
+  }
+
+  .side {
+    position: sticky;
+    top: 24px;
+  }
+
+  .path {
+    color: #8b949e;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .repos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .repos li {
+    margin: 0;
+  }
+
+  .repo-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #9aa0a6;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.2;
+    padding: 8px 12px 8px 10px;
+    transition: color 150ms, background 150ms;
+  }
+
+  .marker {
+    flex: 0 0 10px;
+    color: rgb(239 68 68);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+
+  .repo-link:hover,
+  .repo-link:focus-visible {
+    color: #ffffff;
+    background: var(--active-bg);
+  }
+
+  .repo-link:focus-visible {
+    outline: 1px solid rgb(239 68 68);
+    outline-offset: -1px;
+  }
+
+  .detail-area {
+    min-height: 420px;
+  }
+
+  .detail {
+    display: none;
+    max-width: 62ch;
+    scroll-margin-top: 16px;
+  }
+
+  .detail:target,
+  .detail-first {
+    display: block;
+  }
+
+  .browser:has(.detail:target) .detail-first:not(:target) {
+    display: none;
+  }
+
+  h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    overflow-wrap: anywhere;
+  }
+
+  .proj-path {
+    color: #8b949e;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .desc {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  .links-label {
+    color: #8b949e;
+    font-size: 13px;
+    margin-top: 32px;
+  }
+
+  .links {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+  }
+
+  .links li {
+    margin: 0;
+  }
+
+  .links a {
+    display: inline-block;
+    color: rgb(239 68 68);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 4px 0;
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+  }
+
+  .links a:focus-visible {
+    outline: 1px solid rgb(239 68 68);
+    outline-offset: 2px;
+  }
+
+  .arrow {
+    margin-left: 6px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 820px) {
+    .browser {
+      --active-bg: #171717;
+      display: block;
+      padding-top: 4px;
+    }
+
+    .side {
+      position: static;
+    }
+
+    .path {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .repos {
+      display: flex;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+      scroll-padding-inline: 1rem;
+    }
+
+    .repos::-webkit-scrollbar {
+      display: none;
+    }
+
+    .repos li {
+      flex: 0 0 auto;
+    }
+
+    .repo-link {
+      position: relative;
+      min-height: 44px;
+      padding: 0 14px 0 20px;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow-wrap: normal;
+    }
+
+    .marker {
+      position: absolute;
+      left: 2px;
+      top: 50%;
+      flex: none;
+      font-size: 18px;
+      transform: translateY(-50%);
+    }
+
+    .detail-area {
+      min-height: 0;
+      margin-top: 18px;
+    }
+
+    .detail {
+      max-width: none;
+    }
+
+    .proj-path {
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    .desc {
+      font-size: 16px;
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+
+    .links-label {
+      margin-top: 24px;
+    }
+
+    .links {
+      margin-top: 2px;
+    }
+
+    .links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .repos {
+      margin-inline: -1.25rem;
+      padding-inline: 1.25rem;
+      scroll-padding-inline: 1.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .repos {
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+      scroll-padding-inline: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .repo-link,
+    .marker {
+      transition: none;
+    }
+  }
+</style>
